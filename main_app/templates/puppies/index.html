@@ -7,16 +7,22 @@
 <div class="card">
   <a href="{% url 'detail' puppy.id %}">
     <div class="card-content">
-      <span class="card-title">{{ puppy.name }}</span>
-      <p>Breed: {{ puppy.breed }}</p>
-      <p>Description: {{ puppy.description }}</p>
+      <span class="card-title">
+        {{ puppy.name }}</span>
+      <p>Breed:
+        {{ puppy.breed }}
+      </p>
+      <p>Description:
+        {{ puppy.description }}
+      </p>
       {% if puppy.age > 0 %}
-        <p>Age: {{puppy.age}}</p>
+      <p>Age: {{puppy.age}}</p>
       {% else %}
-        <p>Age: Puppy</p>
+      <p>Age: Puppy</p>
       {% endif %}
     </div>
   </a>
+
 </div>
 {% endfor %}
 

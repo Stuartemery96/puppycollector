@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Puppy
 
 # Create your views here.
@@ -15,3 +16,15 @@ def puppies_index(request):
 def puppies_detail(request, puppy_id):
   puppy = Puppy.objects.get(id=puppy_id)
   return render(request, 'puppies/detail.html', { 'puppy': puppy})
+
+class PuppyCreate(CreateView):
+  model = Puppy
+  fields = '__all__'
+  
+class PuppyUpdate(UpdateView):
+  model = Puppy
+  fields = '__all__'
+
+class PuppyDelete(DeleteView):
+  model = Puppy
+  success_url = '/puppies'  

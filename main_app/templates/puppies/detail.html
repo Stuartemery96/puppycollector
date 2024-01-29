@@ -5,14 +5,25 @@
 
 <div class="card">
   <div class="card-content">
-    <span class="card-title">{{ puppy.name }}</span>
-    <p>Breed: {{ puppy.breed }}</p>
-    <p>Description: {{ puppy.description|linebreaks }}</p>
+    <span class="card-title">
+      {{ puppy.name }}</span>
+    <p>Breed:
+      {{ puppy.breed }}
+    </p>
+    <p>Description:
+      {{ puppy.description|linebreaks }}
+    </p>
     {% if puppy.age > 0 %}
-      <p>Age: {{ puppy.age }}</p>
+    <p>Age:
+      {{ puppy.age }}
+    </p>
     {% else %}
-      <p>Age: Puppy</p>
+    <p>Age: Puppy</p>
     {% endif %}
+  </div>
+  <div class="card-action">
+    <a href="{% url 'puppies_update' puppy.id %}">Edit</a>
+    <a href="{% url 'puppies_delete' puppy.id %}">Delete</a>
   </div>
 </div>
 
