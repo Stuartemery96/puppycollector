@@ -7,9 +7,9 @@
 {% else %}
 <h1>Add Puppy</h1>
 {% endif %}
-<form action="" method="POST">
+<form action="" method="POST" class="add-form">
   {% csrf_token %}
-  <table>
+  <table class="add-table">
     {{form.as_table}}
   </table>
   <input type="submit" value="Submit" class="btn">
