@@ -28,6 +28,17 @@
         <a href="{% url 'puppies_delete' puppy.id %}">Delete</a>
       </div>
     </div>
+    {% for photo in puppy.photo_set.all %}
+    <img class="responsive-img card-panel" src="{{photo.url}}">
+    {% empty %}
+    <div class="card-panel teal-text center-align">No Photos Uploaded.</div>
+    {% endfor %}
+    <form action="{% url 'add_photo' puppy.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file">
+      <br><br>
+      <button type="submit" class="btn">Upload Photo</button>
+    </form>
   </div>
   <div class="col s6">
     <form action="{% url 'add_feeding' puppy.id %}" method="POST">
@@ -58,18 +69,71 @@
       </tbody>
     </table>
   </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>
+      {{ puppy.name }}'s Toys
+    </h3>
+    {% if puppy.toys.count %}
+    {% for toy in puppy.toys.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          A <span style="color: {{ toy.color }}">
+            {{ toy.color }}</span>
+          {{ toy.name }}
+        </span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'unassoc_toy' puppy.id toy.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn">Remove</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h5>No Toys 💔</h5>
+    {% endif %}
+  </div>
+  <div class="col s6">
+    <h3>Available Toys</h3>
+    {% if toys.count %}
+    {% for toy in toys.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          A <span style="color: {{ toy.color }}">
+            {{ toy.color }}</span>
+          {{ toy.name }}
+        </span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'assoc_toy' puppy.id toy.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h5>{{puppy.name}} Already Has All Toys Available</h5>
+    {% endif %}
+  </div>
+</div>
+<script>
+  const dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
 
-  <script>
-    const dateEl = document.getElementById('id_date');
-    M.Datepicker.init(dateEl, {
-      format: 'yyyy-mm-dd',
-      defaultDate: new Date(),
-      setDefaultDate: true,
-      autoClose: true
-    });
+  const selectEl = document.getElementById('id_meal');
+  M.FormSelect.init(selectEl);
+</script>
 
-    const selectEl = document.getElementById('id_meal');
-    M.FormSelect.init(selectEl);
-  </script>
-
-  {% endblock %}
+{% endblock %}
