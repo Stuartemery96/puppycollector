@@ -27,11 +27,11 @@ def puppies_detail(request, puppy_id):
 
 class PuppyCreate(CreateView):
   model = Puppy
-  fields = '__all__'
+  fields = ['name', 'breed', 'description', 'age']
   
 class PuppyUpdate(UpdateView):
   model = Puppy
-  fields = '__all__'
+  fields = ['breed', 'description', 'age']
 
 class PuppyDelete(DeleteView):
   model = Puppy
